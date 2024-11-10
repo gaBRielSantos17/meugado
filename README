@@ -1,0 +1,14 @@
+npx create-expo-app --template blank
+
+Instale o React Navigation:
+npm install @react-navigation/native
+
+Instale as dependências adicionais:
+npm install @react-navigation/stack @react-navigation/bottom-tabs
+
+
+Para o Armazenamento de Dados locais, instale o AsyncStorage:
+npx expo install @react-native-async-storage/async-storage
+
+Iniciar o projeto
+npx expo start
