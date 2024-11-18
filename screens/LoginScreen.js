@@ -28,7 +28,7 @@ export default function LoginScreen({ navigation }) {
       />
 
       {/* Botão de Login */}
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('MainDashboard')}>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Menu Principal')}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 
@@ -38,7 +38,7 @@ export default function LoginScreen({ navigation }) {
           <Text style={styles.linkText}>Esqueci minha senha</Text>
         </TouchableOpacity>
         <Text style={styles.separator}> | </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Registro de Usuario')}>
           <Text style={styles.linkText}>Registrar-se</Text>
         </TouchableOpacity>
       </View>

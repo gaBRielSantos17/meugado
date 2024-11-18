@@ -20,16 +20,16 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="MainDashboard" component={MainDashboardScreen} />
-        <Stack.Screen name="PropertyRegistration" component={PropertyRegistrationScreen} />
-        <Stack.Screen name="AnimalRegistration" component={AnimalRegistrationScreen} />
-        <Stack.Screen name="AnimalMovement" component={AnimalMovementScreen} />
-        <Stack.Screen name="HealthControl" component={HealthControlScreen} />
-        <Stack.Screen name="Reports" component={ReportsScreen} />
-        <Stack.Screen name="SRBIPAIntegration" component={SRBIPAIntegrationScreen} />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
-        <Stack.Screen name="Support" component={SupportScreen} />
+        <Stack.Screen name="Registro de Usuario" component={RegisterScreen} />
+        <Stack.Screen name="Menu Principal" component={MainDashboardScreen} />
+        <Stack.Screen name="Cadastro de Propriedade" component={PropertyRegistrationScreen} />
+        <Stack.Screen name="Cadastro de Animal" component={AnimalRegistrationScreen} />
+        <Stack.Screen name="Movimentação de Animais" component={AnimalMovementScreen} />
+        <Stack.Screen name="Controle Sanitário" component={HealthControlScreen} />
+        <Stack.Screen name="Relatórios" component={ReportsScreen} />
+        <Stack.Screen name="Integração SRBIPA" component={SRBIPAIntegrationScreen} />
+        <Stack.Screen name="Configurações" component={SettingsScreen} />
+        <Stack.Screen name="Suporte e Ajuda" component={SupportScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
