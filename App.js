@@ -1,17 +1,17 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import LoginScreen from './screens/LoginScreen';
-import RegisterScreen from './screens/RegisterScreen';
-import MainDashboardScreen from './screens/MainDashboardScreen';
-import PropertyRegistrationScreen from './screens/PropertyRegistrationScreen';
-import AnimalRegistrationScreen from './screens/AnimalRegistrationScreen';
-import AnimalMovementScreen from './screens/AnimalMovementScreen';
-import HealthControlScreen from './screens/HealthControlScreen';
-import ReportsScreen from './screens/ReportsScreen';
-import SRBIPAIntegrationScreen from './screens/SRBIPAIntegrationScreen';
-import SettingsScreen from './screens/SettingsScreen';
-import SupportScreen from './screens/SupportScreen';
+import LoginScreen from './src/screens/Authentication/LoginScreen';
+import RegisterScreen from './src/screens/Authentication/RegisterScreen';
+import MainDashboardScreen from './src/screens/MainDashboardScreen';
+import PropertyRegistrationScreen from './src/screens/PropertyRegistrationScreen';
+import AnimalRegistrationScreen from './src/screens/AnimalRegistrationScreen';
+import AnimalMovementScreen from './src/screens/AnimalMovementScreen';
+import HealthControlScreen from './src/screens/HealthControlScreen';
+import ReportsScreen from './src/screens/ReportsScreen';
+import SRBIPAIntegrationScreen from './src/screens/SRBIPAIntegrationScreen';
+import SettingsScreen from './src/screens/SettingsScreen';
+import SupportScreen from './src/screens/SupportScreen';
 
 const Stack = createStackNavigator();
 
@@ -19,7 +19,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} options={{headerShown:false}}/>
         <Stack.Screen name="Registro de Usuario" component={RegisterScreen} />
         <Stack.Screen name="Menu Principal" component={MainDashboardScreen} />
         <Stack.Screen name="Cadastro de Propriedade" component={PropertyRegistrationScreen} />
