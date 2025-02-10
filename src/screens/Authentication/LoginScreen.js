@@ -1,47 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
-import { AUTH,DB } from '../../constants/firebaseConsts';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { onValue ,ref} from 'firebase/database';
+import { signInUser } from '../../services/signInUser';
 export default function LoginScreen({ navigation }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState('')
 
- function signInUser () {
-    signInWithEmailAndPassword(AUTH, email, password)
-     .then(userCredential => {
-        const userRef = ref(DB,'users/' + userCredential.user.uid)
-
-        onValue(userRef, snapshot => {
-           const data = snapshot.val()
-          
-           if(data.password === password){
-             navigation.navigate('Menu Principal')
-           }
-        })
-     })
-     .catch(err => {
-      console.log(err)
-      if (err.code === 'auth/invalid-email') {
-        Alert.alert('E-mail incorreto','verifique espaços em branco ou caracteres inválidos!')
-      } 
-      else if (err.code === 'auth/invalid-credential') {
-        Alert.alert('Atenção','Credenciais Inválidas')
-      }
-      else if (err.code === 'auth/internal-error') {
-        Alert.alert('Atenção','Erro interno')
-      } else if (err.code === 'auth/user-not-found') {
-        Alert.alert('Atenção','Usuário não encontrado!')
-      } else if (err.code === 'auth/wrong-password') {
-        Alert.alert('Atenção','Atenção, senha incorreta!')
-      }
-       else if (err.code === 'auth/weak-password') {
-                  Alert.alert("Atenção",'Sua senha deve ter no mínimo 6 caracteres');
-       }
-    });
-  }
   return (
     <View style={styles.container}>
       {/* Logo no topo */}
@@ -65,7 +30,7 @@ export default function LoginScreen({ navigation }) {
       />
 
       {/* Botão de Login */}
-      <TouchableOpacity style={styles.button} onPress={signInUser}>
+      <TouchableOpacity style={styles.button} onPress={() => signInUser(email,password,navigation)}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 
