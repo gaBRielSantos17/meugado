@@ -9,12 +9,10 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* Logo no topo */}
       <Image source={require('../../../assets/logo.png')} style={styles.logo} />
 
       <Text style={styles.title}>Faça seu Login</Text>
       
-      {/* Campos de texto para nome de usuário e senha */}
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -29,14 +27,12 @@ export default function LoginScreen({ navigation }) {
         secureTextEntry
       />
 
-      {/* Botão de Login */}
       <TouchableOpacity style={styles.button} onPress={() => signInUser(email,password,navigation)}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 
-      {/* Link de esqueci minha senha e registro */}
       <View style={styles.linkContainer}>
-        <TouchableOpacity onPress={() => alert('Função de recuperação de senha')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Esqueci Senha')}>
           <Text style={styles.linkText}>Esqueci minha senha</Text>
         </TouchableOpacity>
         <Text style={styles.separator}> | </Text>

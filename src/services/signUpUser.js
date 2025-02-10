@@ -14,8 +14,8 @@ export const signUpUser = async (email, name, address, password, token, navigati
     await set(ref(DB, 'users/' + userCredential.user.uid), {
       id: userCredential.user.uid,
       name,
+      address,
       email,
-      password,
       token
     });
     Alert.alert("Usuário", "Usuário cadastrado com sucesso", [

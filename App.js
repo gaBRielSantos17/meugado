@@ -12,6 +12,7 @@ import ReportsScreen from './src/screens/ReportsScreen';
 import SRBIPAIntegrationScreen from './src/screens/SRBIPAIntegrationScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 import SupportScreen from './src/screens/SupportScreen';
+import ForgotPasswordScreen from './src/screens/Authentication/ForgotPassword';
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={LoginScreen} options={{headerShown:false}}/>
         <Stack.Screen name="Registro de Usuario" component={RegisterScreen} />
+        <Stack.Screen name="Esqueci Senha" component={ForgotPasswordScreen} options={{headerShown:false}}/>       
         <Stack.Screen name="Menu Principal" component={MainDashboardScreen} />
         <Stack.Screen name="Cadastro de Propriedade" component={PropertyRegistrationScreen} />
         <Stack.Screen name="Cadastro de Animal" component={AnimalRegistrationScreen} />
