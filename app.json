@@ -12,9 +12,20 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "bundleIdentifier": "com.mycorp.myrancho"
     },
+    "plugins": [
+      ["expo-build-properties",{
+        "ios":{
+          "useFrameworks":"static"
+        }
+      }]
+    ],
     "android": {
+      "googleServicesFile": "./google-services.json",
+      "package": "com.mycorp.myrancho",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"

@@ -1,34 +1,47 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { FIREBASE_APP } from '../../../firebaseConfig';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { validatedEmail } from '../../helpers/verifyFormatEmail';
+import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
+import { AUTH,DB } from '../../constants/firebaseConsts';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { onValue ,ref} from 'firebase/database';
 export default function LoginScreen({ navigation }) {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState('')
 
-  const FIREBASE_AUTH = getAuth(FIREBASE_APP);
-  const FIREBASE_DB = getFirestore(FIREBASE_APP)
+ function signInUser () {
+    signInWithEmailAndPassword(AUTH, email, password)
+     .then(userCredential => {
+        const userRef = ref(DB,'users/' + userCredential.user.uid)
 
-  const signIn = async () => {
-    setLoading(true)
-    
-    if(!validatedEmail(email).valido){
-       alert("E-mail inválido. Verifique o formato.")
-    }
-    try{
-       const response = await signInWithEmailAndPassword(FIREBASE_AUTH,email,password)
-       console.log(response)
-    }catch(error){
-      console.log(error.message)
-    }
-    finally{
-      setLoading(false)
-    }
+        onValue(userRef, snapshot => {
+           const data = snapshot.val()
+          
+           if(data.password === password){
+             navigation.navigate('Menu Principal')
+           }
+        })
+     })
+     .catch(err => {
+      console.log(err)
+      if (err.code === 'auth/invalid-email') {
+        Alert.alert('E-mail incorreto','verifique espaços em branco ou caracteres inválidos!')
+      } 
+      else if (err.code === 'auth/invalid-credential') {
+        Alert.alert('Atenção','Credenciais Inválidas')
+      }
+      else if (err.code === 'auth/internal-error') {
+        Alert.alert('Atenção','Erro interno')
+      } else if (err.code === 'auth/user-not-found') {
+        Alert.alert('Atenção','Usuário não encontrado!')
+      } else if (err.code === 'auth/wrong-password') {
+        Alert.alert('Atenção','Atenção, senha incorreta!')
+      }
+       else if (err.code === 'auth/weak-password') {
+                  Alert.alert("Atenção",'Sua senha deve ter no mínimo 6 caracteres');
+       }
+    });
   }
-
   return (
     <View style={styles.container}>
       {/* Logo no topo */}
@@ -52,7 +65,7 @@ export default function LoginScreen({ navigation }) {
       />
 
       {/* Botão de Login */}
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Menu Principal')}>
+      <TouchableOpacity style={styles.button} onPress={signInUser}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 

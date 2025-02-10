@@ -12,7 +12,6 @@ import ReportsScreen from './src/screens/ReportsScreen';
 import SRBIPAIntegrationScreen from './src/screens/SRBIPAIntegrationScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 import SupportScreen from './src/screens/SupportScreen';
-
 const Stack = createStackNavigator();
 
 export default function App() {

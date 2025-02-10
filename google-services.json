@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "99891626687",
+    "project_id": "mycattle-3e460",
+    "storage_bucket": "mycattle-3e460.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:99891626687:android:4c73379b398f89f7f3fc0a",
+        "android_client_info": {
+          "package_name": "com.mycorp.myrancho"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrvOFPCUs3BreqGmiEzId5BHjfd5AUxeA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
