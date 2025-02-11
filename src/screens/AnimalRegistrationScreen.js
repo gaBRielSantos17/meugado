@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { cadastrarAnimal } from '../services/animalService';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
 export default function CadastroAnimalScreen() {
@@ -49,9 +50,9 @@ export default function CadastroAnimalScreen() {
         onChangeText={setHistorico}
         multiline
       />
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Salvar Animal</Text>
-      </TouchableOpacity>
+<TouchableOpacity style={styles.button} onPress={() => cadastrarAnimal(brincoRFID, idade, sexo, raca, origem, historico)}>
+  <Text style={styles.buttonText}>Salvar Animal</Text>
+</TouchableOpacity>
     </View>
   );
 }
