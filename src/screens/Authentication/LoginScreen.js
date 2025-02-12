@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
 import { signInUser } from '../../services/signInUser';
+import { DataContext } from '../../contexts/userIdContext';
 export default function LoginScreen({ navigation }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState('')
+  const {idUser, setIdUser} = useContext(DataContext)
 
   return (
     <View style={styles.container}>
@@ -27,7 +29,7 @@ export default function LoginScreen({ navigation }) {
         secureTextEntry
       />
 
-      <TouchableOpacity style={styles.button} onPress={() => signInUser(email,password,navigation)}>
+      <TouchableOpacity style={styles.button} onPress={() => setIdUser(signInUser(email,password,navigation))}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 

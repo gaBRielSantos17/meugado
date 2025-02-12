@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
+
 
 export default function HomeScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
 
   const handleLogin = () => {
     // Aqui você pode adicionar a lógica de autenticação, se desejar
@@ -18,6 +20,7 @@ export default function HomeScreen({ navigation }) {
     // Lógica para recuperar a senha pode ser implementada aqui
     alert('Função de recuperação de senha não implementada.');
   };
+
 
   return (
     <View style={styles.container}>

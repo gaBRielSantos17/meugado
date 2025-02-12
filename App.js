@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { DataProvider } from './src/contexts/userIdContext';
 import LoginScreen from './src/screens/Authentication/LoginScreen';
 import RegisterScreen from './src/screens/Authentication/RegisterScreen';
 import MainDashboardScreen from './src/screens/MainDashboardScreen';
@@ -17,6 +18,7 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
+    <DataProvider>
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={LoginScreen} options={{headerShown:false}}/>
@@ -33,5 +35,6 @@ export default function App() {
         <Stack.Screen name="Suporte e Ajuda" component={SupportScreen} />
       </Stack.Navigator>
     </NavigationContainer>
+    </DataProvider>
   );
 }

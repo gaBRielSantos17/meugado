@@ -10,7 +10,7 @@ export const signUpUser = async (email, name, address, password, token, navigati
     return;
   }
   try {
-    const userCredential = await createUserWithEmailAndPassword(AUTH, email, password);
+    const userCredential = await createUserWithEmailAndPassword(AUTH, email, password); // authentication
     await set(ref(DB, 'users/' + userCredential.user.uid), {
       id: userCredential.user.uid,
       name,

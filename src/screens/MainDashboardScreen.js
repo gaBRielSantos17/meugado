@@ -2,8 +2,14 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { FontAwesome5, } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { DataContext } from '../contexts/userIdContext';
+import { useContext,useEffect  } from 'react';
 
 export default function MainDashboard({ navigation }) {
+  const {idUser} = useContext(DataContext)
+    useEffect(() => {
+        console.log("Id usuario:",idUser._j)
+    },[])
   return (
     <View style={styles.container}>
       <View style={styles.buttonRow}>
