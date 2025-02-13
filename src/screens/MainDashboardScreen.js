@@ -30,39 +30,37 @@ export default function MainDashboard({ navigation }) {
       </View>
 
       <View style={styles.buttonRow}>
-        <TouchableOpacity
+      <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('Movimentação de Animais')}
-        >
-          <FontAwesome5 name="road" size={24} color="white" />
-          <Text style={styles.buttonText}>Movimentação de Animais</Text>
+            onPress={() => navigation.navigate('Consulta de Animais')}>
+        <FontAwesome5 name="search" size={24} color="white" />
+          <Text style={styles.buttonText}>Consultar Animais</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('Movimentação de Animais')}>
+          <FontAwesome5 name="road" size={24} color="white" />
+          <Text style={styles.buttonText}>Movimentação de Animais</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.buttonRow}>
+      <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate('Controle Sanitário')}
         >
           <FontAwesome5 name="syringe" size={24} color="white" />
           <Text style={styles.buttonText}>Controle Sanitário</Text>
         </TouchableOpacity>
-      </View>
-      <View style={styles.buttonRow}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('Relatórios')}
-        >
-          <FontAwesome5 name="file" size={24} color="white" />
+            onPress={() => navigation.navigate('Relatórios')}>
+        <FontAwesome5 name="file" size={24} color="white" />
           <Text style={styles.buttonText}>Relatórios</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('Integração SRBIPA')}
-        >
-          <FontAwesome5 name="network-wired" size={24} color="white" />
-          <Text style={styles.buttonText}>Integração SRBIPA</Text>
-        </TouchableOpacity>
       </View>
+
       <View style={styles.buttonRow}>
         <TouchableOpacity
           style={styles.button}
