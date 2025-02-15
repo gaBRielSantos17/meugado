@@ -14,6 +14,8 @@ import { DataContext } from "../contexts/userIdContext";
 import { useContext } from "react";
 import { getAnimalsId } from "../services/getAnimalsId";
 import { registerHealthControl } from "../services/registerHealthControl";
+import { vacinas } from "../constants/cattleInfo";
+import CustomDropdown from "../components/CustomDropDown";
 
 export default function ControleSanitarioScreen() {
   const [tipoVacina, setTipoVacina] = useState("");
@@ -25,19 +27,7 @@ export default function ControleSanitarioScreen() {
   const [showStartPicker, setShowStartPicker] = useState(false);
   const { idUser } = useContext(DataContext);
 
-  const vacinas = [
-    { title: "Febre Aftosa", icon: "needle" },
-    { title: "Brucelose", icon: "needle" },
-    { title: "Clostridioses", icon: "needle" },
-    { title: "Raiva", icon: "needle" },
-    { title: "Leptospirose", icon: "needle" },
-    { title: "IBR/BVD", icon: "needle" },
-    { title: "Tristeza Parasitária Bovina (TPB)", icon: "needle" },
-    { title: "Mastite", icon: "needle" },
-    { title: "Salmonella", icon: "needle" },
-    { title: "Mannheimia haemolytica (Pneumonia)", icon: "needle" },
-    { title: "Dermatofilose", icon: "needle" },
-  ];
+  
   const onChangeDate = (event, selectedDate) => {
     setShowStartPicker(false);
     console.log(selectedDate);
@@ -48,9 +38,9 @@ export default function ControleSanitarioScreen() {
       const data = await getAnimalsId(idUser._j);
       setAnimals(
         data.map((prop) => ({
-          brincoRFID: `${prop.brincoRFID}`,
+          title: `${prop.brincoRFID}`,
           idAnimal: prop.id,
-          icon: "ticket-confirmation",
+          icon: "cow",
         }))
       );
     };
@@ -60,38 +50,12 @@ export default function ControleSanitarioScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Controle Sanitário</Text>
-      <SelectDropdown
+      <CustomDropdown
         data={vacinas}
-        onSelect={(selectedItem) => setTipoVacina(selectedItem.title)}
-        renderButton={(selectedItem, isOpened) => (
-          <View style={styles.dropdownButtonStyle}>
-            {selectedItem && (
-              <Icon
-                name={selectedItem.icon}
-                style={styles.dropdownButtonIconStyle}
-              />
-            )}
-            <Text style={styles.dropdownButtonTxtStyle}>
-              {selectedItem?.title || "Selecione a Vacina"}
-            </Text>
-            <Icon
-              name={isOpened ? "chevron-up" : "chevron-down"}
-              style={styles.dropdownButtonArrowStyle}
-            />
-          </View>
-        )}
-        renderItem={(item, index, isSelected) => (
-          <View
-            style={{
-              ...styles.dropdownItemStyle,
-              ...(isSelected && { backgroundColor: "#D2D9DF" }),
-            }}
-          >
-            <Icon name={item.icon} style={styles.dropdownItemIconStyle} />
-            <Text style={styles.dropdownItemTxtStyle}>{item.title}</Text>
-          </View>
-        )}
-      />
+        selectedItem={tipoVacina}
+        setSelectedItem={setTipoVacina}
+        placeholder="Selecione a Vacina"/>
+
       <View style={styles.fieldContainer}>
         <Text style={styles.label}>Data de Vacinação</Text>
         <TouchableOpacity
@@ -110,55 +74,21 @@ export default function ControleSanitarioScreen() {
         )}
       </View>
 
-      <SelectDropdown
+      <CustomDropdown
         data={
           animals && animals.length > 0
             ? animals
             : [{ brincoRFID: "Você não possui gado cadastrado no momento" }]
         }
-        onSelect={(selectedItem) => {
-          if (
-            selectedItem.brincoRFID !==
-            "Você não possui gado cadastrado no momento"
-          ) {
-            setBrinco(selectedItem.brincoRFID);
-            setIdAnimal(selectedItem.idAnimal);
-          }
-        }}
-        renderButton={(selectedItem, isOpened) => (
-          <View style={styles.dropdownButtonStyle}>
-            <Icon
-              name="ticket-confirmation"
-              style={styles.dropdownButtonIconStyle}
-            />
-            <Text style={styles.dropdownButtonTxtStyle}>
-              {selectedItem?.brincoRFID || "Selecione o Brinco"}
-            </Text>
-            <Icon
-              name={isOpened ? "chevron-up" : "chevron-down"}
-              style={styles.dropdownButtonArrowStyle}
-            />
-          </View>
-        )}
-        renderItem={(item, index, isSelected) => (
-          <View
-            style={{
-              ...styles.dropdownItemStyle,
-              ...(isSelected && { backgroundColor: "#D2D9DF" }),
-            }}
-          >
-            <Icon name="cow" style={styles.dropdownItemIconStyle} />
-            <Text style={styles.dropdownItemTxtStyle}>{item.brincoRFID}</Text>
-          </View>
-        )}
-        disableAutoScroll={true}
-        showsVerticalScrollIndicator={false}
-      />
+
+        selectedItem={idAnimal}
+        setSelectedItem={setIdAnimal}
+        placeholder="Selecione o Animal"/>
 
       <TouchableOpacity
         style={styles.button}
         onPress={() =>
-          registerHealthControl(idAnimal, brinco, tipoVacina, date, idUser._j)
+          registerHealthControl(idAnimal, tipoVacina, date, idUser._j)
         }
       >
         <Text style={styles.buttonText}>Salvar Controle Sanitário</Text>

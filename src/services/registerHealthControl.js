@@ -4,7 +4,7 @@ import { ref, onValue, set, push } from 'firebase/database';
 import { Alert } from "react-native";
 import { handleAuthError } from "../helpers/handleAuthError";
 
-export const registerHealthControl = async (idAnimal,brinco,tipoVacina, date,userId) => {
+export const registerHealthControl = async (idAnimal,tipoVacina, date,userId) => {
   if (!idAnimal || !tipoVacina || !date) {
     Alert.alert("Atenção", "Todos os campos são obrigatórios.");
     return;
@@ -14,7 +14,7 @@ export const registerHealthControl = async (idAnimal,brinco,tipoVacina, date,use
 
     await push(ref(DB, 'controlHealth/' + idAnimal), {
       userId: userId,
-      brincoRFID : brinco,
+      brincoRFID : idAnimal,
       tipoVacina : tipoVacina,
       dataVacina:new Date(date).toISOString()
     });
