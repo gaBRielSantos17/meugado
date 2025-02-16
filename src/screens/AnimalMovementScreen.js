@@ -8,15 +8,13 @@ export default function MovimentacaoScreen() {
   const [tipoEvento, setTipoEvento] = useState('');
   const [brincoRFID, setBrincoRFID] = useState('');
   const [dataMovimento, setDataMovimento] = useState('');
+  const [idAnimal,setIdAnimal] = useState("")
   const [brincos, setBrincos] = useState([]);
 
   const eventos = [
     { title: 'Vacinação' },
     { title: 'Abate' },
     { title: 'Venda' },
-    { title: 'Cria' },
-    { title: 'Nascimento' },
-    { title: 'Compra' }
   ];
 
   useEffect(() => {
@@ -52,7 +50,7 @@ export default function MovimentacaoScreen() {
       
       <SelectDropdown
         data={brincos}
-        onSelect={(selectedItem) => setIdAnimal(selectedItem)}
+        onSelect={(selectedItem) => setBrincoRFID(selectedItem)}
         renderButton={(selectedItem, isOpened) => (
           <View style={styles.dropdownButtonStyle}>
             <Text style={styles.dropdownButtonTxtStyle}>{selectedItem || 'Selecione um Brinco'}</Text>

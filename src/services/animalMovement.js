@@ -32,8 +32,15 @@ export const animalMovement = async (tipoEvento, brincoRFID, dataMovimento) => {
             Alert.alert('Erro', 'Brinco não encontrado.');
             return;
         }
-
+        const dbRef = ref(DB)
         const movementRef = push(ref(DB, `movimentacoes`));
+        const movements = await get(child(dbRef, `movimentacoes/`));
+        const numbersOcorruenceDeadByBrico = Object.values(movements.val()).filter(b => b.brincoRFID === brincoRFID).filter(t => t.tipoEvento === "Abate").length
+
+        if(numbersOcorruenceDeadByBrico >= 1){
+            Alert.alert("Atenção","Esse animal foi abatido")
+            return
+        }
         await set(movementRef, {
             id: movementRef.key,
             userId: user.uid,
@@ -41,7 +48,6 @@ export const animalMovement = async (tipoEvento, brincoRFID, dataMovimento) => {
             tipoEvento,
             dataMovimento,
         });
-
         Alert.alert('Sucesso', 'Movimentação registrada com sucesso!');
     } catch (error) {
         Alert.alert('Erro', 'Não foi possível registrar a movimentação. Tente novamente.');

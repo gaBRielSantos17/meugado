@@ -1,8 +1,10 @@
 export const idades = Array.from({ length: 50 }, (_, i) => ({ title: (i + 1).toString(), icon: 'calendar' }));
+
  export const sexos = [
     { title: 'M', icon: 'gender-male' },
     { title: 'F', icon: 'gender-female' }
   ];
+  
   export const racas = [
     { title: 'Nelore', icon: 'cow' },
     { title: 'Angus', icon: 'cow' },
