@@ -23,13 +23,13 @@ const CattleTimeline = ({ data }) => {
           description = `Brinco: ${event.brincoRFID}\nOrigem: ${animal?.origem || 'Desconhecida'}`;
           break;
         
-        case 'Vacinação':
-          const vacinas = data.animalsNeedleByBrinco
-            .filter(v => v.brincoRFID === event.brincoRFID)
-            .map(v => v.tipoVacina)
-            .join(', ');
-          description = `Brinco: ${event.brincoRFID}\nVacinas: ${vacinas || 'Nenhuma'}`;
-          break;
+          case 'Vacinação':
+            const vacinas = data.animalsNeedleByBrinco
+              .filter(v => v.brincoRFID === event.brincoRFID && v.dataVacina === event.dataMovimento) // Filtra apenas vacinas da mesma data
+              .map(v => v.tipoVacina)
+              .join(', ');
+            description = `Brinco: ${event.brincoRFID}\nVacinas: ${vacinas || 'Nenhuma'}`;
+            break;
 
         case 'Abate':
           description = `Brinco: ${event.brincoRFID}\nRaça: ${animal?.raca || 'Desconhecida'}\nSexo: ${animal?.sexo || 'Desconhecido'}\nIdade: ${animal?.idade || 'N/A'} ano(s)`;

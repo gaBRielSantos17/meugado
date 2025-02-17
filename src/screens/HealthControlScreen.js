@@ -23,7 +23,7 @@ export default function ControleSanitarioScreen() {
   const [brinco, setBrinco] = useState("");
   const [animals, setAnimals] = useState([]);
   const [vacinaSelecionada, setVacinaSelecionada] = useState("");
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState('');
   const [showStartPicker, setShowStartPicker] = useState(false);
   const { idUser } = useContext(DataContext);
 
@@ -56,23 +56,12 @@ export default function ControleSanitarioScreen() {
         setSelectedItem={setTipoVacina}
         placeholder="Selecione a Vacina"/>
 
-      <View style={styles.fieldContainer}>
-        <Text style={styles.label}>Data de Vacinação</Text>
-        <TouchableOpacity
-          style={styles.dateInput}
-          onPress={() => setShowStartPicker(true)}
-        >
-          <Text>{date.toLocaleDateString()}</Text>
-        </TouchableOpacity>
-        {showStartPicker && (
-          <DateTimePicker
-            value={date}
-            mode="date"
-            display="default"
-            onChange={onChangeDate}
-          />
-        )}
-      </View>
+      <TextInput
+              style={styles.input}
+              placeholder="Data da Movimentação"
+              value={date}
+              onChangeText={setDate}
+            />
 
       <CustomDropdown
         data={

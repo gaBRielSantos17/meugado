@@ -16,7 +16,7 @@ export const registerHealthControl = async (idAnimal,tipoVacina, date,userId) =>
       userId: userId,
       brincoRFID : idAnimal,
       tipoVacina : tipoVacina,
-      dataVacina:new Date(date).toISOString()
+      dataVacina:date
     });
     Alert.alert("Usuário", "Controle de vacina cadastrado com sucesso");
   } catch (err) {
