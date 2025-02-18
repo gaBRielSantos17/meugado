@@ -3,34 +3,82 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
+  Alert,
+  TextInput
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import * as Print from 'expo-print';
+import { shareAsync } from 'expo-sharing'
+import { reportMovement } from "../services/reportMovement"; // Certifique-se que o caminho está correto
 
 const ReportScreen = () => {
   const [movementType, setMovementType] = useState(""); // Tipo de movimentação
-  const [startDate, setStartDate] = useState(new Date()); // Data inicial
-  const [endDate, setEndDate] = useState(new Date()); // Data final
-  const [showStartPicker, setShowStartPicker] = useState(false); // Exibição do calendário inicial
-  const [showEndPicker, setShowEndPicker] = useState(false); // Exibição do calendário final
+  const [startDate, setStartDate] = useState(""); // Data inicial
+  const [endDate, setEndDate] = useState(""); // Data final
 
-  const onChangeStartDate = (event, selectedDate) => {
-    setShowStartPicker(false);
-    if (selectedDate) setStartDate(selectedDate);
-  };
 
-  const onChangeEndDate = (event, selectedDate) => {
-    setShowEndPicker(false);
-    if (selectedDate) setEndDate(selectedDate);
+  const generatePDF = async () => {
+    const reportData = await reportMovement(movementType, startDate, endDate);
+
+    const htmlContent = `
+    <html>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+          body { font-family: Arial, sans-serif; text-align: center; }
+          table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+          th, td { border: 1px solid black; padding: 10px; text-align: left; }
+          th { background-color: #f2f2f2; }
+        </style>
+      </head>
+      <body>
+        <h1>Relatório de Movimentações</h1>
+        <h2>Tipo: ${movementType}</h2>
+        <table>
+          <tr>
+            <th>Idade</th>
+            <th>Origem</th>
+            <th>Raça</th>
+            <th>Sexo</th>
+            <th>Data do Movimento</th>
+            <th>Brinco RFID</th>
+          </tr>
+          ${reportData.map(data => `
+            <tr>
+              <td>${data.idade || "N/A"}</td>
+              <td>${data.origem || "N/A"}</td>
+              <td>${data.raca || "N/A"}</td>
+              <td>${data.sexo || "N/A"}</td>
+              <td>${data.dataMovimento || "N/A"}</td>
+              <td>${data.brincoRFID || "N/A"}</td>
+            </tr>
+          `).join('')}
+        </table>
+      </body>
+    </html>
+  `;
+  
+    try {
+      const {uri} = await Print.printToFileAsync({ 
+        html: htmlContent,
+        base64: false
+      });
+      Alert.alert("PDF Gerado", `O relatório foi salvo!!`);
+      await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' })
+
+    //  await Print.printAsync({htmlContent})
+    } catch (error) {
+      console.error("Erro ao gerar PDF:", error);
+      Alert.alert("Erro", "Falha ao gerar PDF.");
+    }
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Geração de Relatório</Text>
 
-      {/* Seleção do tipo de movimentação */}
       <View style={styles.fieldContainer}>
         <Text style={styles.label}>Tipo de Movimentação</Text>
         <Picker
@@ -39,54 +87,34 @@ const ReportScreen = () => {
           onValueChange={(itemValue) => setMovementType(itemValue)}
         >
           <Picker.Item label="Selecione" value="" />
-          <Picker.Item label="Vacinação" value="vacinação" />
-          <Picker.Item label="Abate" value="abate" />
-          <Picker.Item label="Venda" value="venda" />
-          <Picker.Item label="Cria" value="cria" />
-          <Picker.Item label="Nascimento" value="nascimento" />
-          <Picker.Item label="Compra" value="compra" />
+          <Picker.Item label="Vacinação" value="Vacinação" />
+          <Picker.Item label="Abate" value="Abate" />
+          <Picker.Item label="Venda" value="Venda" />
         </Picker>
       </View>
 
-      {/* Campos de data */}
       <View style={styles.fieldContainer}>
         <Text style={styles.label}>Data Inicial</Text>
-        <TouchableOpacity
+        <TextInput 
           style={styles.dateInput}
-          onPress={() => setShowStartPicker(true)}
-        >
-          <Text>{startDate.toLocaleDateString()}</Text>
-        </TouchableOpacity>
-        {showStartPicker && (
-          <DateTimePicker
-            value={startDate}
-            mode="date"
-            display="default"
-            onChange={onChangeStartDate}
-          />
-        )}
+          value={startDate}
+          placeholder="DD/MM/YYYY"
+          onChangeText={setStartDate}
+          
+        />
       </View>
-
       <View style={styles.fieldContainer}>
         <Text style={styles.label}>Data Final</Text>
-        <TouchableOpacity
+        <TextInput 
           style={styles.dateInput}
-          onPress={() => setShowEndPicker(true)}
-        >
-          <Text>{endDate.toLocaleDateString()}</Text>
-        </TouchableOpacity>
-        {showEndPicker && (
-          <DateTimePicker
-            value={endDate}
-            mode="date"
-            display="default"
-            onChange={onChangeEndDate}
-          />
-        )}
+          value={endDate}
+          placeholder="DD/MM/YYYY"
+          onChangeText={setEndDate}
+          
+        />
       </View>
 
-      {/* Botão de gerar relatório */}
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={generatePDF}>
         <Text style={styles.buttonText}>Gerar Relatório</Text>
       </TouchableOpacity>
     </View>

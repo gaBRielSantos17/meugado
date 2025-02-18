@@ -62,13 +62,6 @@ export default function MainDashboard({ navigation }) {
       </View>
 
       <View style={styles.buttonRow}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('Configurações')}
-        >
-          <FontAwesome5 name="cogs" size={24} color="white" />
-          <Text style={styles.buttonText}>Configurações</Text>
-        </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.button}
