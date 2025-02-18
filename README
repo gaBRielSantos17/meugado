@@ -1,14 +1,27 @@
-npx create-expo-app --template blank
+# Aplicativo Meu Gado
 
-Instale o React Navigation:
-npm install @react-navigation/native
+Projeto Final da Disciplina de Programação para Dispositivos Móveis
 
-Instale as dependências adicionais:
-npm install @react-navigation/stack @react-navigation/bottom-tabs
+## Tecnologias Utilizadas
 
+- [JavaScript (NodeJS)](https://nodejs.org/pt)
+- [Expo](https://expo.dev/)
+- [React Native](https://reactnative.dev/)
+- [Firebase](https://firebase.google.com/)
 
-Para o Armazenamento de Dados locais, instale o AsyncStorage:
-npx expo install @react-native-async-storage/async-storage
+### Passo a Passo
 
-Iniciar o projeto
-npx expo start
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/gaBRielSantos17/meugado.git
+
+2. Mudar para a pasta do projeto:
+    ```bash
+   cd meugado
+3. Instalar os módulos:
+    ```bash
+   npm install
+4. Rodar o projeto:
+    ```bash
+   npx expo start --tunnel
+
